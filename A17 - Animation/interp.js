@@ -13,9 +13,12 @@ function InterpMat(
 	// return the interpolated transform matrix with the given position and rotation
 	b = 1-a;
 
-	return utils.multiplyMatrices(utils.multiplyMatrices(utils.multiplyMatrices(
+	// return utils.multiplyMatrices(utils.multiplyMatrices(utils.multiplyMatrices(
+	// 	utils.MakeTranslateMatrix(tx1*b+tx2*a,ty1*b+ty2*a,tz1*b+tz2*a),
+	// 	utils.MakeRotateZMatrix(rz1*b+rz2*a)),
+	// 	utils.MakeRotateXMatrix(rx1*b+rx2*a)),
+	// 	utils.MakeRotateYMatrix(ry1*b+ry2*a));
+	return utils.multiplyMatrices(
 		utils.MakeTranslateMatrix(tx1*b+tx2*a,ty1*b+ty2*a,tz1*b+tz2*a),
-		utils.MakeRotateZMatrix(rz1*b+rz2*a)),
-		utils.MakeRotateXMatrix(rx1*b+rx2*a)),
-		utils.MakeRotateYMatrix(ry1*b+ry2*a));	
+		Quaternion.fromEuler(utils.degToRad(rz1*b+rz2*a),utils.degToRad(rx1*b+rx2*a),utils.degToRad(ry1*b+ry2*a)).toMatrix4());
 }
