@@ -15,46 +15,48 @@ function buildGeometry() {
 	var color2 = [0.0, 1.0, 1.0];
 	addMesh(dataCube[0], dataCube[1], color2);
 	
-	// Draws function y = sin(x) * cos(z) with -3 <= x <= 3 and -3 <= z <= 3 -- To do for the assignment.	
-	// I write 3 different method to obtain the normals
-	// 1) add all normals of triangles of a vertex 
-	// 		-> High error in low poli
-	var dataSurface = surface(2,6)
-	var color3 = [0.0, 1.0, 1.0];
-	addMesh(dataSurface[0], dataSurface[1], color3);
-	// 2) add all normals of triangles of a vertex by means of a weight (the angle)
-	// 		-> Require a specific order of vertex 
-	// 		-> High error only at the border
-	var dataSurface = surface(2,6,"quotato")
-	var color3 = [0.0, 1.0, 1.0];
-	addMesh(dataSurface[0], dataSurface[1], color3);
-	// 3) computing the partial derivative of the point.
-	var dataSurface = surface(2,6,"derivate")
-	var color3 = [0.0, 1.0, 1.0];
-	addMesh(dataSurface[0], dataSurface[1], color3);
+	// // Draws function y = sin(x) * cos(z) with -3 <= x <= 3 and -3 <= z <= 3 -- To do for the assignment.	
+	// // I write 3 different method to obtain the normals
+	// // 1) add all normals of triangles of a vertex 
+	// // 		-> High error in low poli
+	// var dataSurface = surface(2,6)
+	// var color3 = [0.0, 1.0, 1.0];
+	// addMesh(dataSurface[0], dataSurface[1], color3);
+
+	// // 2) add all normals of triangles of a vertex by means of a weight (the angle)
+	// // 		-> Require a specific order of vertex 
+	// // 		-> High error only at the border
+	// var dataSurface = surface(2,6,"quotato")
+	// var color3 = [0.0, 1.0, 1.0];
+	// addMesh(dataSurface[0], dataSurface[1], color3);
+	
+	// // 3) computing the partial derivative of the point.
+	// var dataSurface = surface(2,6,"derivate")
+	// var color3 = [0.0, 1.0, 1.0];
+	// addMesh(dataSurface[0], dataSurface[1], color3);
 
 	// In High poli the 3 methods give the same result 
 	// this is possible due to the fact that more triangles means less error
 	// and more like a limit therefore derivative.
-	var dataSurface = surface(10,3)
+	var dataSurface = surface(10,3,"derivate")
 	var color3 = [0.0, 1.0, 1.0];
 	addMesh(dataSurface[0], dataSurface[1], color3);
 
 	// Draws a Cylinder --- To do for the assignment	
-	var dataCylinder = cylinder(5)
-	var color4 = [1.0, 1.0, 0.0];
-	addMesh(dataCylinder[0], dataCylinder[1], color4);	
-	var dataCylinder = cylinder(5,"quotato")
-	var color4 = [1.0, 1.0, 0.0];
-	addMesh(dataCylinder[0], dataCylinder[1], color4);
+	// var dataCylinder = cylinder(5)
+	// var color4 = [1.0, 1.0, 0.0];
+	// addMesh(dataCylinder[0], dataCylinder[1], color4);	
+	// var dataCylinder = cylinder(5,"quotato")
+	// var color4 = [1.0, 1.0, 0.0];
+	// addMesh(dataCylinder[0], dataCylinder[1], color4);
 	var dataCylinder = cylinder(50)
 	var color4 = [1.0, 1.0, 0.0];
 	addMesh(dataCylinder[0], dataCylinder[1], color4);
 
 	// Draws a Sphere --- To do for the assignment.		
-	var dataSphere = sphere(5,3,"quotato")
-	var color5 = [1.0, 0.0, 0.0];
-	addMesh(dataSphere[0], dataSphere[1], color5);
+	// var dataSphere = sphere(5,3,"quotato")
+	// var color5 = [1.0, 0.0, 0.0];
+	// addMesh(dataSphere[0], dataSphere[1], color5);
 	var dataSphere = sphere(50,30)
 	var color5 = [1.0, 0.0, 0.0];
 	addMesh(dataSphere[0], dataSphere[1], color5);

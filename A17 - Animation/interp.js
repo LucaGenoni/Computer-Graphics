@@ -11,11 +11,11 @@ function InterpMat(
 	// a (in 0..1 range)	-> Interpolation coefficient
 	//
 	// return the interpolated transform matrix with the given position and rotation
-	b = 1-a	
+	b = 1-a;
 
 	return utils.multiplyMatrices(utils.multiplyMatrices(utils.multiplyMatrices(
-		utils.MakeTranslateMatrix(tx1*a+tx2*b,ty1*a+ty2*b,tz1*a+tz2*b),
-		utils.MakeRotateZMatrix(rz1*a+rz2*b)),
-		utils.MakeRotateXMatrix(rx1*a+rx2*b)),
-		utils.MakeRotateYMatrix(ry1*a+ry2*b));
+		utils.MakeTranslateMatrix(tx1*b+tx2*a,ty1*b+ty2*a,tz1*b+tz2*a),
+		utils.MakeRotateZMatrix(rz1*b+rz2*a)),
+		utils.MakeRotateXMatrix(rx1*b+rx2*a)),
+		utils.MakeRotateYMatrix(ry1*b+ry2*a));	
 }
