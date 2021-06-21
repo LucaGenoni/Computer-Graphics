@@ -131,9 +131,9 @@ var S5 = `
 	out_color = diffColor * (LAcontr + LBcontr + LCcontr);
 
 	// Toon - Blinn specular - shown only if the LAcontr is not black
-	vec4 BlinnAcontr = (pow(clamp(dot(normalVec, normalize(eyedirVec+lightDirA)),0.0,1.0), SpecShine) <= SToonTh) ? LAcontr * 0.0 : LAcontr;
-	vec4 BlinnBcontr = (pow(clamp(dot(normalVec, normalize(eyedirVec+lightDirB)),0.0,1.0), SpecShine) <= SToonTh) ? LBcontr * 0.0 : LBcontr;
-	vec4 BlinnCcontr = (pow(clamp(dot(normalVec, normalize(eyedirVec+lightDirC)),0.0,1.0), SpecShine) <= SToonTh) ? LCcontr * 0.0 : LCcontr;
+	vec4 BlinnAcontr = (clamp(dot(normalVec, normalize(eyedirVec+lightDirA)),0.0,1.0) <= SToonTh) ? LAcontr * 0.0 : LAcontr;
+	vec4 BlinnBcontr = (clamp(dot(normalVec, normalize(eyedirVec+lightDirA)),0.0,1.0) <= SToonTh) ? LBcontr * 0.0 : LBcontr;
+	vec4 BlinnCcontr = (clamp(dot(normalVec, normalize(eyedirVec+lightDirA)),0.0,1.0) <= SToonTh) ? LCcontr * 0.0 : LCcontr;
 	out_color += specularColor * (BlinnAcontr + BlinnBcontr + BlinnCcontr);	
 
 	// Ambient material
