@@ -58,47 +58,25 @@ var S1 = `
 var S2 = pointLight;
 
 // Single spot light (without decay), constant ambient
-var S3 = `
-	// Single spot light
-	OlightDir = normalize(Pos - fs_pos);
-	float Reflection = max(dot(Dir, normalVec),0.0)==0.0 ? 0.0:1.0;
-	OlightColor = lightColor * Reflection;
-	OlightColor *= clamp( (dot(OlightDir,Dir) - cos(radians(ConeOut/2.0))) / (cos(radians(ConeOut*ConeIn/2.0)) - cos(radians(ConeOut/2.0))) ,0.0,1.0);
-
+var S3 = spotlight+`
 	// Ambient
 	ambientColor = ambientLightColor;
 `;
 
 // Single point light with decay
-var S4 = `
-	// Single point light
-	OlightDir = normalize(Pos - fs_pos);
-	float Reflection = max(dot(Dir, normalVec),0.0)==0.0 ? 0.0:1.0;
-	OlightColor = lightColor * Reflection;
-
+var S4 = pointLight+`
 	// with decay
 	OlightColor *= pow(Target/length(Pos - fs_pos),Decay);
 `;
 
 // Single spot light with decay
-var S5 = `
-	// Single spot light
-	OlightDir = normalize(Pos - fs_pos);
-	float Reflection = max(dot(Dir, normalVec),0.0)==0.0 ? 0.0:1.0;
-	OlightColor = lightColor * Reflection;
-	OlightColor *= clamp( (dot(OlightDir,Dir) - cos(radians(ConeOut/2.0))) / (cos(radians(ConeOut*ConeIn/2.0)) - cos(radians(ConeOut/2.0))) ,0.0,1.0);
-	
+var S5 = spotlight+`
 	// with decay
 	OlightColor	*= pow(Target/length(Pos - fs_pos),Decay);
 `;
 
 // Single point light, hemispheric ambient 
-var S6 = `
-	// Single point light
-	OlightDir = normalize(Pos - fs_pos);
-	float Reflection = max(dot(Dir, normalVec),0.0)==0.0 ? 0.0:1.0;
-	OlightColor = lightColor * Reflection;
-
+var S6 = pointLight+`
 	// hemispheric ambient
 	float highLight = (dot(normalVec,ADir)+1.0)/2.0;
 	ambientColor = ambientLightColor * highLight;
@@ -106,13 +84,7 @@ var S6 = `
 `;
 
 // Single spot light, spherical harmonics ambient
-var S7 = `
-	// Single spot light
-	OlightDir = normalize(Pos - fs_pos);
-	float Reflection = max(dot(Dir, normalVec),0.0)==0.0 ? 0.0:1.0;
-	OlightColor = lightColor * Reflection;
-	OlightColor *= clamp( (dot(OlightDir,Dir) - cos(radians(ConeOut/2.0))) / (cos(radians(ConeOut*ConeIn/2.0)) - cos(radians(ConeOut/2.0))) ,0.0,1.0);
-	
+var S7 = spotlight+`
 	// Spherical harmonics ambient
 	ambientColor = SHconstColor;
 	ambientColor += normalVec.x * SHDeltaLxColor;
