@@ -38,10 +38,16 @@ function shaders() {
 var pointLight =`
 	// Single point light
 	OlightDir = normalize(Pos - fs_pos);
-	float Reflection = max(dot(Dir, normalVec),0.0)==0.0 ? 0.0:1.0;
+	float Reflection = max(dot(OlightDir, normalVec),0.0)==0.0 ? 0.0:1.0;
 	OlightColor = lightColor * Reflection;
 `
-var spotlight = pointLight+`
+var decay =`
+	// with decay
+	OlightColor *= pow(Target/length(Pos - fs_pos),Decay);
+`
+
+var spotlight =`
+	// spotlight
 	OlightColor *= clamp( (dot(OlightDir,Dir) - cos(radians(ConeOut/2.0))) / (cos(radians(ConeOut*ConeIn/2.0)) - cos(radians(ConeOut/2.0))) ,0.0,1.0);
 `
 var S1 = `
@@ -58,22 +64,16 @@ var S1 = `
 var S2 = pointLight;
 
 // Single spot light (without decay), constant ambient
-var S3 = spotlight+`
+var S3 = pointLight + spotlight+`
 	// Ambient
 	ambientColor = ambientLightColor;
 `;
 
 // Single point light with decay
-var S4 = pointLight+`
-	// with decay
-	OlightColor *= pow(Target/length(Pos - fs_pos),Decay);
-`;
+var S4 = pointLight + decay;
 
 // Single spot light with decay
-var S5 = spotlight+`
-	// with decay
-	OlightColor	*= pow(Target/length(Pos - fs_pos),Decay);
-`;
+var S5 = pointLight+ decay + spotlight;
 
 // Single point light, hemispheric ambient 
 var S6 = pointLight+`
@@ -84,7 +84,7 @@ var S6 = pointLight+`
 `;
 
 // Single spot light, spherical harmonics ambient
-var S7 = spotlight+`
+var S7 = pointLight + spotlight +`
 	// Spherical harmonics ambient
 	ambientColor = SHconstColor;
 	ambientColor += normalVec.x * SHDeltaLxColor;
